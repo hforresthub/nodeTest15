@@ -10,7 +10,7 @@ const options = {
 }
 
 const req = http.request(options, res => {
-	console.log(`status code: ${res.statusCode}`)
+	console.log(`status code: ${res.statusCode}, message: ${res.statusMessage}`)
 
 	res.on('data', d => {
 		process.stdout.write(d)
@@ -22,3 +22,24 @@ req.on('error', error => {
 })
 
 req.end()
+
+const options2 = {
+	hostname: 'localhost',
+	port: port,
+	path: '/'
+}
+
+const getReq = http.get(options, res => {
+	console.log(`get status code: ${res.statusCode}`)
+
+	res.on('data', d => {
+		process.stdout.write(d)
+	})
+})
+
+getReq.on('error', error => {
+	console.error(error)
+})
+
+// console.log(http.ClientRequest)
+// console.log(http.IncomingMessage)
